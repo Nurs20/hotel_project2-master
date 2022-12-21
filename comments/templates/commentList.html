@@ -1,0 +1,13 @@
+﻿{% extends "commentBase.html" %}
+{% block title %}
+Отель "Название" - Список коментариев
+{% endblock %}
+{% block commentsPlace %}
+{% for comment in commentList %}
+
+<p />{{ comment.user.surname }} {{ comment.user.firstname }} {{ comment.user.patronymic }}
+<a href="{% url 'comments:detail' comment_id=comment.pk %}">
+<br />{{ comment.title }}
+<br />{{ comment.date }}</a>
+{% endfor %}
+{% endblock %}

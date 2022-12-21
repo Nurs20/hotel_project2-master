@@ -1,0 +1,55 @@
+{% extends "roomBase.html" %}
+{% block title %}
+Отель "Название"
+{% endblock %}
+{% block content %}
+{% load staticfiles %}
+<div class="container text-center">    
+    <br>
+	{% if user.is_authenticated %}
+	<div class="container-fluid text-center">
+        <a class="btn btn-success btn-lg" href="{% url 'booking:create' %}"> ОФОРМИТЬ ЗАЯВКУ </a> 
+    </div>
+	{% else %}
+    <div class="container-fluid text-center">
+        <a class="btn btn-success btn-lg" href="{% url 'myprofile:registrate' %}"> ЗАРЕГИСТРИРУЙТЕСЬ </a> 
+    </div>
+	{% endif %}
+  <h2>Отель</h2>
+  <div class="row">
+    <div class="col-sm-4">
+	<a href="{% url 'myprofile:budget' %}">
+      <img src="{% static 'budget.jpg' %}" class="img-responsive" style="width:100%" alt="Image">
+      <p>Бюджетный номер</p>
+	</a>
+    </div>
+	<div class="col-sm-4"> 
+	<a href="{% url 'myprofile:lux' %}">
+      <img src="{% static 'lux.jpg' %}" class="img-responsive" style="width:100%" alt="Image">
+      <p>Номер люкс</p> 
+    </a>	  
+    </div>
+    <div class="col-sm-4"> 
+	<a href="{% url 'myprofile:business' %}">
+      <img src="{% static 'business.jpg' %}" class="img-responsive" style="width:100%" alt="Image">
+      <p>номер бизнес-класса</p>  
+	</a>
+    </div>
+	<div class="col-sm-4">
+	<h3> Последние отзывы </h3>
+	{% for comment in commentsList %}
+      <div class="well">
+	  <a href="{% url 'comments:detail' comment_id=comment.pk %}">
+	  <p>автор: {{ comment.user.surname }} {{ comment.user.firstname }} {{ comment.user.patronymic }}</p>
+	  <p>{{comment.title}}</p>
+	  </a>
+      </div>
+	{% endfor %}
+    </div>
+	</div>
+	 </div>
+
+    
+  </div>
+</div><br>
+{% endblock %}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+  <title>{% block title %}Bootstrap Example {% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+     html {
+     position: relative; 
+     min-height: 100%;
+    }
+  body {
+     /* Margin bottom by footer height */
+     margin-bottom: 60px;
+  }
+  footer {
+     position: absolute;
+     bottom: 0;
+     width: 100%;
+     /* Set the fixed height of the footer here */
+     height: 60px;
+     background-color: #f2f2f2;
+  }
+    
+  .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+      min-height:200px;
+  }
+
+  /* Hide the carousel text when the screen is less than 600 pixels wide */
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none; 
+    }
+  }
+  </style>
+</head>
+<body>
+<!-- Навигационная панель -->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+	<!-- Кнопка вызова меню при max-width: 600px -->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="{% url 'myprofile:main' %}">Главная</a>
+    </div>
+	<!-- Пункты навигационной панели -->
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'myprofile:profile' %}">Профиль</a></li>
+        <li><a href="{% url 'comments:list' %}">Отзывы</a></li>
+		<li><a href="{% url 'myprofile:about' %}">О нас</a></li>
+      </ul>
+	  <!-- Кнопка log in -->
+	  {% if user.is_authenticated %}
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'myprofile:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+	  {% else %}
+	  <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'myprofile:login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+	  {% endif %}
+    </div>
+  </div>
+</nav>
+{% block content %}
+
+{% endblock %}
+<footer >
+<div  class="text-center">
+  <br>
+  Footer Text
+</div>
+</footer>
+
+</body>
+</html>
